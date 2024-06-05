@@ -78,6 +78,7 @@ class client extends object_client_base {
             // See https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-multipart-upload.html.
             $this->maxupload = OBJECTFS_BYTES_IN_TERABYTE * 5;
             $this->bucket = $config->s3_bucket;
+            $this->bucketacl = $config->s3_bucket_acl;
             $this->expirationtime = $config->expirationtime;
             $this->presignedminfilesize = $config->presignedminfilesize;
             $this->enablepresignedurls = $config->enablepresignedurls;
@@ -441,6 +442,15 @@ class client extends object_client_base {
      */
     public function define_client_section($settings, $config) {
         global $OUTPUT;
+        $acloptions = [
+            'private' => 'private',
+            'public-read' => 'public-read',
+            'public-read-write' => 'public-read-write',
+            'authenticated-read' => 'authenticated-read',
+            'aws-exec-read' => 'aws-exec-read',
+            'bucket-owner-read' => 'bucket-owner-read',
+            'bucket-owner-full-control' => 'bucket-owner-full-control',
+        ];
 
         $settings->add(new \admin_setting_heading('tool_objectfs/aws',
             new \lang_string('settings:aws:header', 'tool_objectfs'), $this->define_client_check()));
@@ -462,6 +472,10 @@ class client extends object_client_base {
         $settings->add(new \admin_setting_configtext('tool_objectfs/s3_bucket',
             new \lang_string('settings:aws:bucket', 'tool_objectfs'),
             new \lang_string('settings:aws:bucket_help', 'tool_objectfs'), ''));
+
+        $settings->add(new \admin_setting_configselect('tool_objectfs/s3_bucket_acl',
+            new \lang_string('settings:aws:bucket_acl', 'tool_objectfs'),
+            new \lang_string('settings:aws:bucket_acl_help', 'tool_objectfs'), 'private', $acloptions));
 
         $settings->add(new admin_settings_aws_region('tool_objectfs/s3_region',
             new \lang_string('settings:aws:region', 'tool_objectfs'),
@@ -500,7 +514,7 @@ class client extends object_client_base {
                 $this->client, $this->bucket,
                 $this->bucketkeyprefix . $externalpath,
                 $filehandle,
-                'private',
+                $this->bucketacl,
                 [
                     'params' => [
                         'ContentType' => $mimetype,
