@@ -65,6 +65,9 @@ class client extends object_client_base {
     /** @var string Prefix for bucket keys */
     protected $bucketkeyprefix;
 
+    /** @var string $bucketacl option to set access permission in S3 bucket */
+    private $bucketacl;
+
     /**
      * construct
      * @param mixed $config
