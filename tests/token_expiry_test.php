@@ -37,17 +37,17 @@ class token_expiry_test extends testcase {
     public static function get_result_provider(): array {
         return [
             'ok' => [
-                'expiry' => time() + 10 * DAYSECS,
+                'expirytime' => time() + 10 * DAYSECS,
                 'warnperiod' => 5 * DAYSECS,
                 'expectedresult' => result::OK,
             ],
             'warning' => [
-                'expiry' => time() + DAYSECS,
+                'expirytime' => time() + DAYSECS,
                 'warnperiod' => 5 * DAYSECS,
                 'expectedresult' => result::WARNING,
             ],
             'expired' => [
-                'expiry' => time() - DAYSECS,
+                'expirytime' => time() - DAYSECS,
                 'warnperiod' => 5 * DAYSECS,
                 'expectedresult' => result::CRITICAL,
             ],

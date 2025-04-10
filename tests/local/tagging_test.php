@@ -213,37 +213,37 @@ class tagging_test extends testcase {
         return [
             'duplicated, needs sync' => [
                 'location' => OBJECT_LOCATION_DUPLICATED,
-                'status' => tag_manager::SYNC_STATUS_NEEDS_SYNC,
+                'syncstatus' => tag_manager::SYNC_STATUS_NEEDS_SYNC,
                 'expectedneedssync' => true,
             ],
             'remote, needs sync' => [
                 'location' => OBJECT_LOCATION_EXTERNAL,
-                'status' => tag_manager::SYNC_STATUS_NEEDS_SYNC,
+                'syncstatus' => tag_manager::SYNC_STATUS_NEEDS_SYNC,
                 'expectedneedssync' => true,
             ],
             'local, needs sync' => [
                 'location' => OBJECT_LOCATION_LOCAL,
-                'status' => tag_manager::SYNC_STATUS_NEEDS_SYNC,
+                'syncstatus' => tag_manager::SYNC_STATUS_NEEDS_SYNC,
                 'expectedneedssync' => false,
             ],
             'duplicated, does not need sync' => [
                 'location' => OBJECT_LOCATION_DUPLICATED,
-                'status' => tag_manager::SYNC_STATUS_COMPLETE,
+                'syncstatus' => tag_manager::SYNC_STATUS_COMPLETE,
                 'expectedneedssync' => false,
             ],
             'local, does not need sync' => [
                 'location' => OBJECT_LOCATION_LOCAL,
-                'status' => tag_manager::SYNC_STATUS_COMPLETE,
+                'syncstatus' => tag_manager::SYNC_STATUS_COMPLETE,
                 'expectedneedssync' => false,
             ],
             'duplicated, sync error' => [
                 'location' => OBJECT_LOCATION_DUPLICATED,
-                'status' => tag_manager::SYNC_STATUS_ERROR,
+                'syncstatus' => tag_manager::SYNC_STATUS_ERROR,
                 'expectedneedssync' => false,
             ],
             'local, sync error' => [
                 'location' => OBJECT_LOCATION_LOCAL,
-                'status' => tag_manager::SYNC_STATUS_ERROR,
+                'syncstatus' => tag_manager::SYNC_STATUS_ERROR,
                 'expectedneedssync' => false,
             ],
         ];
