@@ -73,7 +73,7 @@ class file_system extends object_file_system {
 
         if ($success === false) {
             manager::update_object_by_hash($file->get_contenthash(), OBJECT_LOCATION_ERROR);
-            throw new \file_exception('storedfilecannotreadfile', $file->get_filename());
+            throw new \file_exception('storedfilecannotreadfile', $path);
         }
     }
 
