@@ -610,7 +610,11 @@ abstract class object_file_system extends \file_system_filedir {
             return $this->externalclient->proxy_range_request($file, $ranges);
         }
 
-        return false;
+        global $CFG;
+        require_once($CFG->libdir . "/xsendfilelib.php");
+        return xsendfile($this->get_remote_path_from_hash($contenthash));
+
+        //return false;
     }
 
     /**
